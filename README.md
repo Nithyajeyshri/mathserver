@@ -29,7 +29,136 @@ Create a HTML file to implement form based input and output.
 Publish the website in the given URL.
 
 # PROGRAM :
+```
+views.py
+from django.shortcuts import render
+
+def lamp_power(request):
+    power = None  # Default value if no calculation yet
+    if request.method == 'POST':
+        try:
+            current = float(request.POST.get('current', 0))
+            resistance = float(request.POST.get('resistance', 0))
+            # Calculate power
+            power = current ** 2 * resistance
+        except ValueError:
+            power = "Invalid input! Please enter numeric values."
+    
+    return render(request, 'app/lamp_power.html', {'power': power})
+
+urls.py
+from django.urls import path
+from . import views
+from app import views
+urlpatterns = [
+    path('lamp_power/', views.lamp_power, name='lamp_power'),
+]
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lamp Filament Power Calculator</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #a8edea, #fed6e3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+    h1 {
+      color: #ff6b81;
+      font-size: 22px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #333;
+    }
+    input {
+      width: 80%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 20px;
+      background: #ff6b81;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff4757;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #2f3542;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>💡 Lamp Filament Power Calculator</h1>
+    <p>Formula: <strong>P = I² × R</strong></p>
+
+    <label for="intensity">Enter Intensity (I in Amperes):</label>
+    <input type="number" id="intensity" step="any" placeholder="e.g., 0.5">
+
+    <label for="resistance">Enter Resistance (R in Ohms):</label>
+    <input type="number" id="resistance" step="any" placeholder="e.g., 10">
+
+    <button onclick="calculatePower()">Calculate Power</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculatePower() {
+      const I = parseFloat(document.getElementById('intensity').value);
+      const R = parseFloat(document.getElementById('resistance').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(I) || isNaN(R)) {
+        resultDiv.textContent = "⚠️ Please enter both Intensity and Resistance.";
+        resultDiv.style.color = "red";
+        return;
+      }
+
+      const P = (I * I * R).toFixed(2);
+      resultDiv.style.color = "#2f3542";
+      resultDiv.textContent = `Power (P) = ${P} W`;
+    }
+  </script>
+
+</body>
+</html>
+```
 # SERVER SIDE PROCESSING:
+<img width="1599" height="718" alt="image" src="https://github.com/user-attachments/assets/91328426-2e42-4da4-8324-482f8bb3c299" />
+
 # HOMEPAGE:
+
 # RESULT:
 The program for performing server side processing is completed successfully.
