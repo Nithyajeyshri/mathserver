@@ -159,6 +159,7 @@ urlpatterns = [
 <img width="1599" height="718" alt="image" src="https://github.com/user-attachments/assets/91328426-2e42-4da4-8324-482f8bb3c299" />
 
 # HOMEPAGE:
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/57e8c0d0-d68c-43f1-9a52-c5da5132f0f2" />
 
 # RESULT:
 The program for performing server side processing is completed successfully.
